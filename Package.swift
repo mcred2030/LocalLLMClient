@@ -19,7 +19,7 @@ packageDependencies.append(contentsOf: [
     .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.4.0"),
     // Fork patch (2026-04-15): mlx-swift-lm dropped swift-transformers re-export,
     // but LocalLLMClientMLX/Context.swift still imports Tokenizers. Declare directly.
-    .package(url: "https://github.com/huggingface/swift-transformers", from: "0.1.0")
+    .package(url: "https://github.com/huggingface/swift-transformers", from: "1.3.0")
 ])
 #endif
 
