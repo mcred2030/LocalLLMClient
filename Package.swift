@@ -16,7 +16,10 @@ var packageDependencies: [Package.Dependency] = [
 #if os(iOS) || os(macOS)
 packageDependencies.append(contentsOf: [
     .package(url: "https://github.com/ml-explore/mlx-swift-lm", branch: "main"),
-    .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.4.0")
+    .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.4.0"),
+    // Fork patch (2026-04-15): mlx-swift-lm dropped swift-transformers re-export,
+    // but LocalLLMClientMLX/Context.swift still imports Tokenizers. Declare directly.
+    .package(url: "https://github.com/huggingface/swift-transformers", from: "0.1.0")
 ])
 #endif
 
@@ -135,6 +138,8 @@ packageTargets.append(contentsOf: [
             "LocalLLMClientCore",
             .product(name: "MLXLLM", package: "mlx-swift-lm"),
             .product(name: "MLXVLM", package: "mlx-swift-lm"),
+            // Fork patch (2026-04-15): explicit Tokenizers dep since mlx-swift-lm no longer re-exports.
+            .product(name: "Tokenizers", package: "swift-transformers"),
         ],
     ),
     .testTarget(
